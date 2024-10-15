@@ -1,0 +1,41 @@
+<!-- src/main/resources/templates/peliculas.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Películas</title>
+
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+  </head>
+  <body class="body-peliculas">
+    <header>
+      <div th:replace="fragments/navbar/navbar :: navbar"></div>
+      <!-- Resto del contenido de la página -->
+    </header>
+
+
+    <main class="grid-peliculas">
+
+      <div class="grid-title-peliculas">
+        <h2>Todas las peliculas: </h2>
+      </div>
+
+      <div class="grid-container-peliculas">
+        <div class="grid-card" th:each="pelicula : ${peliculas}">
+          <a href="">
+            <img
+              th:src="@{/assets/{filename}(filename=${pelicula.rutaPortada})}"
+              th:alt="${pelicula.titulo}"
+              class="grid-card-img"
+            />
+          </a>
+        </div>
+      </div>
+    </main>
+
+
+   
+  </body>
+</html>

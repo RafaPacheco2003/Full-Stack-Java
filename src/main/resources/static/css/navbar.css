@@ -1,0 +1,167 @@
+
+
+
+
+/* Estilos para el contenedor del menú */
+.menu {
+    height: 70px;
+   
+    background-color: #090606;
+    
+    position: absolute; /* Posiciona el contenedor del menú de manera absoluta con respecto al primer contenedor posicionado */
+    
+    top: 0px; /* Coloca el contenedor 20px desde la parte superior del contenedor padre */
+    left: 0; /* Coloca el contenedor en el borde izquierdo del contenedor padre */
+    right: 0; /* Coloca el contenedor en el borde derecho del contenedor padre */
+    display: flex; /* Usa flexbox para alinear los elementos dentro del contenedor */
+    justify-content: center; /* Centra los elementos horizontalmente dentro del contenedor */
+    align-items: center; /* Centra los elementos verticalmente dentro del contenedor */
+    z-index: 1000; /* Asegura que el menú esté por encima de otros elementos con menor z-index */
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    /*align-items: center;*/
+    padding: 10px 20px;
+    background-color: #080505;
+    color: white;
+}
+
+.response-menu {
+    display: none;
+}
+
+
+/* Estilos para la barra de navegación */
+.navbar {
+    display: flex;
+    align-items: center; /* Alinear todos los elementos verticalmente */
+    justify-content: space-between; /* Alinear el logo, menú 1, y menú 2 correctamente */
+    width: 100%; /* Asegura que la barra ocupe todo el ancho */
+    padding: 0 10px; /* Añadir algo de padding para darle espacio horizontal */
+}
+
+
+/* Estilos para el logo */
+.logo-1 {
+    width: auto;
+    height: 100%;
+    margin: 0;
+    margin-left: 40px;
+    flex-grow: 0;
+}
+
+/* Estilos para los elementos de la lista en el menú principal */
+.menu .navbar ul li {
+    float: left;
+}
+
+/* Menu 1 */
+/* Estilos para los enlaces dentro de la lista en el menú principal */
+.menu .navbar ul li a {
+    text-decoration: none;
+    font-size: 12px;
+    padding: 10px;
+    color: #ffffff;
+    display: block;
+}
+
+/* Estilos para los enlaces en el menú principal cuando se pasan por encima */
+.menu .navbar ul li a:hover {
+    color: #db241b;
+}
+
+/* Estilos para los contenedores de los menús */
+.menu-1 {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+/* Estilos para el segundo menú */
+.menu-2 {
+    margin-top: 15px;
+    margin-right: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.menu-2 ul {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Estilos para los enlaces dentro del segundo menú */
+.menu-2 a {
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #ffffff;
+    display: block;
+}
+
+/* Estilos para el menú icono */
+.menu-icon {
+    width: 25px;
+}
+
+/* Agregar estilos del menú desplegable para 'Genero' */
+.menu .navbar ul li .dropdown-content {
+    border: #1d1b1b 1px #333;
+    display: none;
+    position: absolute;
+    background-color: #333; /* Color de fondo del menú desplegable */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Sombra para el menú */
+    z-index: 1;
+}
+
+.menu .navbar ul li .dropdown-content a {
+    color: white; /* Color del texto en el menú desplegable */
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 12px;
+}
+
+/* Cambia el color al pasar el ratón sobre un elemento del menú desplegable */
+.menu .navbar ul li .dropdown-content a:hover {
+    background-color: #575757; /* Cambia el fondo cuando se pasa el ratón */
+}
+
+/* Mostrar el menú desplegable al pasar el ratón sobre 'Genero' */
+.menu .navbar ul li:hover .dropdown-content {
+    display: block;
+}
+.hamburgesa{
+    display: none;
+}
+
+/* Estilos para el buscador */
+.search-input {
+    padding: 8px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 10px; /* Tamaño de fuente */
+    outline: none; /* Sin contorno al hacer foco */
+    transition: all 0.3s ease; /* Transición suave */
+}
+
+.search-input:focus {
+    box-shadow: 0 0 5px rgba(219, 36, 27, 0.7); /* Sombra al enfocar */
+}
+
+@media screen and (max-width: 768px) {
+   
+    .navbar{
+        display: none;
+    }
+}
+
+

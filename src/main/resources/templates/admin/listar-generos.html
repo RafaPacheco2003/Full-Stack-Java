@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Listar Géneros</title>
+    <!-- Bootstrap CSS v5.3.2 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link href="https://unpkg.com/boxicons/css/boxicons.min.css" rel="stylesheet">
+
+    
+    <link rel="stylesheet" href="https://unpkg.com/boxicons/css/boxicons.min.css">
+    <link rel="stylesheet" href="/css/adminGenero.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+
+<header class="dashboard-header">
+    <div class="dashboard">
+        <h2>Administración</h2>
+        <i class='bx bx-user-circle' ></i>
+    </div>
+</header>
+  
+    
+    <aside>
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <img src="/img/cineLogo.png" alt="">
+            </div>
+            <ul class="nav">
+                <li><a href="/admin"><i class='bx bx-home'></i>Inicio</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown"><i class='bx bx-user'></i>Películas</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Lista de películas</a></li>
+                        <li><a href="#">Agregar película</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><i class='bx bx-box'></i>Contenido</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown"><i class='bx bx-category'></i>Género</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/admin/generos">Lista de géneros</a></li>
+                        <li><a href="/admin/genero/nuevo">Agregar género</a></li>
+                    </ul>
+                </li>
+                <li><a href="/"><i class='bx bx-low-vision'></i>Visualizar</a></li>
+            </ul>
+            <div class="cerrar-sesion">
+                <i class='bx bx-exit'></i><a href="">Cerrar Sesión</a>
+            </div>
+        </nav>
+    </aside>
+    
+    <main>
+        <section class="administracion">
+            <div class="container genero">
+                <div class="container list-generos">
+                    <div class="list-genero-h">
+                        <h3>Géneros</h3>
+                        <div class="buscar-container">
+                            <input type="text" placeholder="Buscar..." class="buscar-input">
+                            <a href="/admin/genero/nuevo" type="button" class="btn btn-secondaryy">Agregar</a>
+                        </div>
+                    </div>
+                    <!-- Mostrar el mensaje de error si existe -->
+                    <div th:if="${param.error}">
+                        <div class="alert alert-danger" role="alert">
+                            <p th:if="${param.error == 'existe_pelicula'}">No se puede eliminar el género porque está asociado a una o más películas.</p>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table class="table ">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="genero: ${generos}">
+                                    <th th:text="${genero.id}" scope="row"></th>
+                                    <td th:text="${genero.nombre}"></td>
+                                    <td>
+                                        <div class="container-btn">
+                                            <a class="btn-editar" th:href="@{/admin/genero/editar/{id}(id=${genero.id})}">Editar</a>
+                                            <form th:action="@{/admin/generos/eliminar/{id}(id=${genero.id})}" method="post" style="display:inline;">
+                                                <button type="submit" class="btn-eliminar">Eliminar</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                    
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    
+
+     <!-- Incluye jQuery y Bootstrap JS -->
+     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+ 
+     <!-- Tu archivo JavaScript personalizado -->
+     <script>
+         document.addEventListener('DOMContentLoaded', function () {
+
+             const dropdowns = document.querySelectorAll('.dropdown');
+ 
+             dropdowns.forEach(dropdown => {
+
+                 const toggle = dropdown.querySelector('.dropdown-toggle');
+                 const menu = dropdown.querySelector('.dropdown-menu');
+ 
+                 toggle.addEventListener('click', function (event) {
+                     event.preventDefault();
+                     
+                     // Cierra otros menús si están abiertos
+                     dropdowns.forEach(d => {
+                         if (d !== dropdown) {
+                             d.querySelector('.dropdown-menu').classList.remove('show');
+                         }
+                     });
+ 
+                     // Alterna la visibilidad del menú actual
+                     menu.classList.toggle('show');
+                 });
+ 
+                 // Cierra el menú si se hace clic fuera de él
+                 document.addEventListener('click', function (event) {
+                     if (!dropdown.contains(event.target) && menu.classList.contains('show')) {
+                         menu.classList.remove('show');
+                     }
+                 });
+             });
+         });
+     </script>
+    </body>
+</html>

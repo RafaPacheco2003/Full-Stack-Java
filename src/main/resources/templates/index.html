@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Inicio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+<link
+      href="https://unpkg.com/boxicons/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+<script src="/js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+
+  <!-- Bootstrap CSS v5.3.2 -->
+  <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+-->
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+</head>
+
+<body>
+
+  <header>
+
+
+    
+    <div th:replace="fragments/navbar/navbar :: navbar"></div>
+
+    <div class="header-content container">
+
+      <div class="swiper mySwiper-1">
+          <div class="swiper-wrapper">
+
+              <!--Slider 1-->
+              <div class="swiper-slide">
+                  <div class="slider">
+
+                      <!--Informacion de slide-->
+                      <div class="slider-text">
+                          <h2>Deadpool</h2>
+                          <p>
+                            Deadpool es el resultado de un largo proceso que comenzó con la aparición del personaje en los cómics de Marvel en 1991. Creado por Rob Liefeld y Fabian Nicieza, Deadpool se caracterizaba por su humor irreverente, rompimiento de la cuarta pared y su naturaleza antiheroica.
+                          </p>
+
+                          <div class="botones">
+                              <a href="" class="btn-1">Ver Trailers</a>
+                              <a href="" class="btn-2">Ver mas informacion</a>
+                          </div>
+                      </div>
+                       <!---->
+                      <div class="slider-img">
+                          <img src="/img/deadpool.gif" alt="">
+                      </div>
+
+                  </div>
+              </div>
+
+               <!--Slider 2-->
+              <div class="swiper-slide">
+                  <div class="slider">
+
+                      <!--Informacion de slide-->
+                      <div class="slider-text">
+                          <h2>Tortya</h2>
+                          <p>
+                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, unde ea! Aut accusantium quaerat quos, similique impedit a laudantium in. Neque mollitia provident modi deleniti ducimus maxime a molestias officia!
+                          </p>
+
+                          <div class="botones">
+                              <a href="" class="btn-1">Comprar</a>
+                              <a href="" class="btn-1">Menu</a>
+                          </div>
+                      </div>
+                       <!---->
+                      <div class="slider-img">
+                          <img src="/img/giphy.gif" alt="">
+                      </div>
+
+                  </div>
+              </div>
+          
+               <!--Slider 3-->
+              <div class="swiper-slide">
+                  <div class="slider">
+
+                      <!--Informacion de slide-->
+                      <div class="slider-text">
+                          <h2>Hamburgesa</h2>
+                          <p>
+                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, unde ea! Aut accusantium quaerat quos, similique impedit a laudantium in. Neque mollitia provident modi deleniti ducimus maxime a molestias officia!
+                          </p>
+
+                          <div class="botones">
+                              <a href="" class="btn-1">Comprar</a>
+                              <a href="" class="btn-1">Menu</a>
+                          </div>
+                      </div>
+                       <!---->
+                      <div class="slider-img">
+                          <img src="/img/slider3.png" alt="">
+                      </div>
+
+                  </div>
+              </div>
+
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-pagination"></div>
+
+      </div>
+  </div>
+  </header>
+
+  <main>
+
+
+    <section class="Ultimos-estrenos">
+      <div class="titulo-section-card">
+          <h2>Últimos Estrenos</h2>
+          <a href="#" class="ver-mas">Ver Más</a>
+      </div>
+  
+      <div class="card-container">
+          <!-- Iteración de las películas con Thymeleaf -->
+          <div class="card" th:each="pelicula : ${ultimasPeliculas}">
+              <!-- El enlace a la película se construye con el id -->
+              <a th:href="@{/peliculas/{id}(id=${pelicula.id})}">
+                  <img th:src="@{/assets/{filename}(filename=${pelicula.rutaPortada})}" 
+                       th:alt="${pelicula.titulo}" class="card-img">
+              </a>
+              <div class="card-body">
+                  <!-- Puedes mostrar más detalles de la película aquí si lo deseas -->
+                  <!--<h2 class="card-title" th:text="${pelicula.titulo}"></h2>
+                  <p class="card-text" th:text="${pelicula.fechaEstreno}"></p>-->
+              </div>
+          </div>
+      </div>
+  </section>
+  
+
+
+  <section class="Peliculas-antiguas">
+
+    <div class="titulo-section-card">
+      <h2>Peliculas antiguas</h2>
+      <a href="" class="ver-mas">Ver Más</a>
+    </div>
+
+    <div class="card-container">
+
+      <div class="card" th:each="pelicula : ${peliculasAntiguas}">
+        <a href=""
+          ><img
+            th:src="@{/assets/{filename}(filename=${pelicula.rutaPortada})}"
+            th:alt="${pelicula.titulo}"
+            class="card-img"
+        /></a>
+      </div>
+
+      
+
+    </div>
+
+
+  </section>
+  
+
+    <!-- Sección de últimas películas 
+    <div class="bg-light p-5 rounded">
+      <h1 class="display-1 texts-success">Bienvenido a Cinema Trailers</h1>
+      <h2>Disfruta de tus trailers favoritos sin costo alguno</h2>
+
+      <h4 class="text-danger mt-5">Últimos estrenos</h4>
+
+      <div class="row">
+        <div class="col-md-3 my-5" th:each="pelicula : ${ultimasPeliculas}">
+          <div class="card">
+            <img th:src="@{/assets/{filename}(filename=${pelicula.rutaPortada})}" th:alt="${pelicula.titulo}" class="card-img-top">
+            <div class="card-body">
+              <h2 class="card-title fs-6" th:text="${pelicula.titulo}"></h2>
+              <p class="card-text" th:text="${pelicula.fechaEstreno}"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    -->
+
+    <!-- Sección de películas recientes 
+    <div class="bg-light p-5 rounded mt-5">
+      <h4 class="text-danger">Películas Recientes</h4>
+
+      <div class="row">
+        <div class="col-md-3 my-5" th:each="pelicula : ${peliculasRecientes}">
+          <a href="@{/peliculas/{id}(id=${pelicula.id})}" class="card shadow-lg" style="text-decoration: none;">
+            <img th:src="@{/assets/{filename}(filename=${pelicula.rutaPortada})}" th:alt="${pelicula.titulo}" class="card-img-top">
+            <div class="card-body">
+              <h2 class="card-title fs-6" th:text="${pelicula.titulo}"></h2>
+              <p class="card-text" th:text="${pelicula.fechaEstreno}"></p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  -->
+  </main>
+</body>
+</html>

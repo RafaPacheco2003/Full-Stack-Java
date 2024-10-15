@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Película</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <style>
+        .preview-container {
+            width: 100%;
+            max-width: 300px;
+            height: 400px;
+            border: 1px solid #ced4da;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .preview-container img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container my-5">
+        <h1 class="mb-4">Editar Película</h1>
+        <form method="post" enctype="multipart/form-data" th:action="@{/admin/peliculas/{id}/actualizar(id=${pelicula.id})}" th:object="${pelicula}">
+            <input type="hidden" name="id" th:value="${pelicula.id}" />
+            <div class="row">
+                <!-- Lado izquierdo: Previsualización de la portada -->
+                <div class="col-md-4">
+                    <div class="preview-container">
+                        <img id="preview" th:src="@{/assets/{filename}(filename=${pelicula.rutaPortada})}" alt="Previsualización de la portada" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="portada" class="form-label">Portada</label>
+                        <input type="file" id="portada" name="portada" class="form-control" onchange="previewImage(event)" />
+                    </div>
+                </div>
+                <!-- Lado derecho: Campos del formulario -->
+                <div class="col-md-8">
+                    <div class="mb-3">
+                        <label for="titulo" class="form-label">Título</label>
+                        <input type="text" id="titulo" name="titulo" class="form-control" th:value="${pelicula.titulo}" />
+                        <div class="invalid-feedback" id="titulo-feedback"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="sinopsis" class="form-label">Sinopsis</label>
+                        <textarea id="sinopsis" name="sinopsis" class="form-control" th:text="${pelicula.sinopsis}"></textarea>
+                        <div class="invalid-feedback" id="sinopsis-feedback"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="youtubeTrailerId" class="form-label">ID del Trailer de YouTube</label>
+                        <input type="text" id="youtubeTrailerId" name="youtubeTrailerId" class="form-control" th:value="${pelicula.youtubeTrailerId}" />
+                        <div class="invalid-feedback" id="youtubeTrailerId-feedback"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="generos" class="form-label">Géneros</label>
+                            <select id="generos" name="generos" class="form-select" multiple>
+                                <option th:each="genero : ${generos}" th:value="${genero.id}" th:text="${genero.nombre}" 
+                                    th:selected="${pelicula.generos.contains(genero)}"></option>
+                            </select>
+                            <div class="invalid-feedback" id="generos-feedback"></div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="fechaEstreno" class="form-label">Fecha de Estreno</label>
+                            <input type="date" id="fechaEstreno" name="fechaEstreno" class="form-control" th:value="${pelicula.fechaEstreno}" />
+                            <div class="invalid-feedback" id="fechaEstreno-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function () {
+                    const output = document.getElementById('preview');
+                    output.src = reader.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+</body>
+</html>

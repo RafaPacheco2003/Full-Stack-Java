@@ -1,0 +1,547 @@
+
+
+
+/* Estilos globales para todos los elementos */
+* {
+    margin: 0; /* Elimina el margen por defecto de todos los elementos */
+    padding: 0; /* Elimina el relleno por defecto de todos los elementos */
+    box-sizing: border-box; /* Incluye el padding y el borde en el ancho y alto de los elementos */
+    text-decoration: none; /* Elimina el subrayado por defecto en enlaces */
+    list-style: none; /* Elimina los puntos de lista en elementos de lista */
+}
+
+
+
+/* Estilos para el body */
+body {
+
+
+    /*   background-color: #080202; Establece el color de fondo del body */
+    color: rgb(20, 20, 20); /* Establece el color del texto en el body */
+}
+/* Globales */
+.container {
+    max-width: 1200px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+
+
+
+
+
+
+/*Slider*/
+/*Buttons para mover el swiper*/
+.swiper-button-next{
+    color: #A9A9A9 ;
+}
+.swiper-button-next::after{
+    font-size: 25px;
+}
+.swiper-button-prev{
+    color: #A9A9A9 ;
+}
+.swiper-button-prev::after{
+    font-size: 25px;
+
+
+}
+.swiper-pagination{
+    color: #A9A9A9 ;
+}
+.swiper-pagination::after{
+    font-size: 25px;
+}
+
+.swiper-pagination-bullet{
+    background-color: #ffffff;
+}
+
+.swiper-pagination-bullet-active{
+    background-color: #A9A9A9 ;
+}
+
+
+.header-content{
+    background-color: #080505;
+    margin-top: 70px;
+    padding-bottom: 10px;
+    width: 100%;
+}
+
+
+.slider{
+   
+    display: flex;
+    align-items: center;
+    padding-bottom: 100px;
+    width: 100%; /* Asegura que el slider ocupe el 100% del ancho del contenedor padre */
+    box-sizing: border-box; /* Incluye padding y borde en el ancho total */
+}
+
+.slider-text{
+
+   
+    margin-left: 75px;
+    width: 50%;
+}
+
+.slider-text h2{
+    font-size: 35px;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.slider-text p{
+    font-size: 12px;
+    color: #ffffff;
+
+}
+.slider-img{
+    width: 55%;
+    padding-top: 30px;
+}
+
+.slider-img img { 
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
+    margin-right: 225px;
+    height: 450px;
+    width: 550px;
+    
+}
+
+
+
+.botones{
+   
+    display: flex;
+    align-items: center; /* Esto centra verticalmente el contenido */
+    justify-content: center;
+    margin-top: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px; /* Añadimos un padding-top para centrar */
+}
+
+
+.btn-1 {
+    margin-left: 18px;
+    display: inline-block;
+    
+    text-align: center;
+    justify-content: center;
+    padding: 7px 12px;
+    border: 2px solid #A9A9A9 ;
+    border-radius: 50px;
+    color: #ffffff;
+    font-weight: 800;
+   text-decoration: none;
+    text-transform: uppercase;
+    margin-right: 20px;
+}
+
+.btn-1:hover{
+    border: 2px solid #A9A9A9 ;
+    background-color: #A9A9A9 ;
+}
+
+.btn-2{
+    
+   
+    text-align: center;
+    justify-content: center;
+    display: inline-block;
+    padding: 7px 12px;
+    border: 2px solid #2E2E2E  ;
+    background-color: #2E2E2E  ;
+    border-radius: 50px;
+    color: #ffffff;
+    font-weight: 800;
+   text-decoration: none;
+    text-transform: uppercase;
+    margin-right: 20px;
+}
+
+.btn-2:hover{
+    background-color: transparent; /* Fondo transparente al hacer hover */
+    border: 2px solid #A9A9A9 ;
+    color: #ffffff;
+
+}
+
+
+
+ /*Section the list movies*/
+ .Peliculas-antiguas{
+    padding: 20px 40px;
+    background-color: #080505; 
+ }
+
+ .Ultimos-estrenos {
+    padding: 20px 40px;
+    background-color: #080505; /* Fondo temporal para prueba */
+}
+
+
+.titulo-section-card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+}
+
+.titulo-section-card h2{
+    font-size: 16px;
+    margin: 0;
+    color: #ffffff; /* Color del título */
+}
+
+.ver-mas {
+    text-decoration: none;
+    color: #A9A9A9 ;
+    font-weight: bold;
+    font-size: 16px;
+}
+.ver-mas:hover {
+    text-decoration: underline;
+}
+
+.card-container {
+    height: 300px;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: visible; /* Permite que el hover no corte las tarjetas */
+    gap: 15px; /* Espacio entre las tarjetas */
+    padding-top: 20px; /* Agrega espacio para evitar que se corte arriba */
+}
+
+.card {
+    border-radius: 5px;
+    overflow: hidden; /* Funciona para que corte la imagen */
+    width: 200px;
+    height: 270px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    flex-shrink: 0; /* Evita que las tarjetas se reduzcan de tamaño */
+    transition: transform 0.3s ease; /* Añade transición */
+}
+
+.card:hover {
+    transform: translateY(-10px); /* Mueve la tarjeta hacia arriba */
+}
+
+
+.card-img {
+    width: 100%;
+    height: auto; /* Mantiene la proporción de la imagen */
+    display: block; /* Elimina espacio debajo de la imagen */
+
+}
+
+
+
+
+
+
+/* Ajustes de responsive para pantallas móviles */
+@media screen and (max-width: 768px) {
+    .slider {
+        flex-direction: column-reverse; /* Coloca la imagen encima del texto */
+        text-align: center;
+        padding-bottom: 50px;
+    }
+
+    .slider-text {
+        width: 70%; /* Ocupa todo el ancho disponible */
+        margin-left: 0;
+    }
+
+    .slider-img img {
+        margin-right: 0; /* Elimina el margen derecho */
+        width: 100%; /* Ajusta la imagen para ocupar todo el ancho disponible */
+        height: auto; /* Mantiene la proporción de la imagen */
+    }
+
+    .botones {
+        flex-direction: column; /* Cambia la disposición de los botones en una columna */
+    }
+
+    .botones .btn-1{
+        margin-bottom: 20px;
+    }
+    
+    
+
+
+
+
+
+
+
+    
+}
+.text-title-card{
+    margin-right: 20px;
+    margin-left: 30px;
+    
+
+    width: 100%;
+    margin-top: 70px;
+}
+
+.text-title-card h2{
+    color: #fff;
+}
+.grid-container {
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-top: 20px;
+    background-color: #080505;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Las columnas se ajustan automáticamente */
+    gap: 0px; /* Espacio entre las tarjetas */
+    padding: 10px; /* Espacio dentro del contenedor */
+}
+
+.grid-card {
+    border-radius: 5px; /* Redondea las esquinas de la tarjeta */
+    overflow: hidden; /* Corta cualquier contenido desbordante */
+    background-color: #fff;
+    width: 200px;
+    height: 270px;
+    display: flex;
+    flex-direction: column; /* Alinea el contenido de la tarjeta en columna */
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+.grid-card:hover{
+    transform: translateY(-10px);
+}
+
+.grid-card-img {
+    width: 100%; /* Ancho específico de la imagen */
+    height: auto; /* Alto específico de la imagen */
+    object-fit: cover; /* Asegura que la imagen se ajuste correctamente */
+    display: block; /* Elimina espacio debajo de la imagen */
+    border-radius: 10px; /* Redondea las esquinas de la imagen para que coincida con la tarjeta */
+}
+
+
+.body-genero{
+    background-color: #080505;
+    text-decoration: none;
+}
+
+.body-peliculas{
+    background-color: #080505;
+}
+
+.grid-peliculas{
+    margin-top: 70px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.grid-title-peliculas{
+    font-weight: 300;
+    margin-left: 10px;  
+    display: flex;
+    align-items: center;
+}
+
+.grid-title-peliculas h2{
+    color: #ffffff;
+}
+
+.grid-container-peliculas{
+   
+    margin-top: 15px;
+    background-color: #080505;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Las columnas se ajustan automáticamente */
+    gap: 0px; /* Espacio entre las tarjetas */
+    padding: 10px; /* Espacio dentro del contenedor */
+}
+
+
+
+
+
+
+
+/* Fondo general */
+.body-login {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(200, 200, 200, 1) 100%);
+    font-family: Arial, sans-serif;
+}
+
+/* Sección de inicio de sesión */
+.iniciar-Sección {
+    color: #333; /* Texto oscuro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+/* Contenedor del login con efecto de vidrio */
+.login {
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.9); /* Fondo blanco con opacidad */
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Borde gris claro */
+    border-radius: 12px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+}
+
+.login:hover {
+    transform: scale(1.03); /* Efecto de crecimiento al pasar el mouse */
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+}
+
+/* Título del login */
+.login h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333; /* Título oscuro */
+}
+
+/* Etiquetas de campo */
+.login label {
+    font-size: 14px;
+    color: #555; /* Etiquetas en gris oscuro */
+}
+
+/* Campos de entrada */
+.login input[type="text"],
+.login input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 4px;
+    background-color: #f9f9f9; /* Fondo blanco suculento */
+    color: #333; /* Texto oscuro */
+    transition: border 0.3s ease;
+}
+
+.login input[type="text"]:focus,
+.login input[type="password"]:focus {
+    border: 1px solid #007bff; /* Borde azul al enfocar */
+}
+
+/* Botón de envío */
+.login button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #007bff; /* Botón azul */
+    color: #ffffff; /* Texto blanco */
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.login button:hover {
+    background-color: #0056b3; /* Botón azul oscuro al pasar el mouse */
+}
+
+/* Enlace para registrarse */
+.login a {
+    color: #007bff; /* Enlace azul */
+    font-size: 14px;
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    text-decoration: none; /* Sin subrayado */
+}
+
+.login a:hover {
+    text-decoration: underline; /* Subrayado al pasar el mouse */
+}
+
+/* Media query para dispositivos móviles */
+@media (max-width: 600px) {
+    .iniciar-Sección {
+        padding: 10px;
+    }
+
+    .login {
+        padding: 20px;
+        max-width: 90%; /* Reducir el ancho para mejorar el ajuste */
+    }
+
+    .login h2 {
+        font-size: 20px;
+    }
+
+    .login input[type="text"],
+    .login input[type="password"] {
+        padding: 8px;
+    }
+
+    .login button {
+        padding: 10px;
+    }
+
+    .login a {
+        font-size: 12px;
+    }
+}
+
+
+
+
+.body-register{
+    background-color: #080505;
+}
+
+.register{
+    border: #0056b3 1px solid;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+
+}
+
+
+.container-register{
+    border: 1px solid #ccc;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.9); /* Fondo blanco con opacidad */
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Borde gris claro */
+    border-radius: 12px;
+    max-width: 400px;
+    width: 100%; box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+}
+
+.container-register:hover {
+    transform: scale(1.03); /* Efecto de crecimiento al pasar el mouse */
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+}
+
+.container-register h2{
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333; /* Título oscuro */
+}
+
+.container-register label {
+    font-size: 14px;
+    color: #555; /* Etiquetas en gris oscuro */
+}

@@ -1,0 +1,59 @@
+<!-- src/main/resources/templates/fragments/navbar/navbar.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+    <script src="/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+</head>
+<body>
+    <header>
+        <div th:fragment="navbar">
+            <div class="menu">
+                <nav class="navbar">
+                    <img src="/img/logo.svg" alt="" class="logo-1" />
+                    <div class="menu-1">
+                        <ul>
+                            <li><a th:href="@{/}">Inicio</a></li>
+                            <li><a href="/peliculas">Películas</a></li>
+                            <li class="dropdown">
+                                <a href="#">Género</a>
+                                <div class="dropdown-content">
+                                    <a th:each="genero : ${generos}" th:href="@{/peliculas/genero/{id}(id=${genero.id})}" th:text="${genero.nombre}"></a>
+                                </div>
+                            </li>
+                            <li><a href="#">Blog</a></li>
+                        </ul>
+                    </div>
+                    <div class="menu-2">
+                        <ul>
+                        
+                                <a href="/admin">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);">
+                                        <path d="M7.5 6.5C7.5 8.981 9.519 11 12 11s4.5-2.019 4.5-4.5S14.481 2 12 2 7.5 4.019 7.5 6.5zM20 21h1v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h17z"></path>
+                                    </svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                </nav>
+
+                <div class="hamburgesa">
+
+                    <img src="/img/logo.svg" alt="" class="logo-1" />
+                    <i class='bx bx-menu'></i>
+                </div>
+
+
+                
+                
+            </div>
+        </div>
+    </header>
+</body>
+
+
+</html>
