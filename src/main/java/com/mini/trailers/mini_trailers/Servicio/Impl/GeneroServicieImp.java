@@ -2,6 +2,7 @@ package com.mini.trailers.mini_trailers.Servicio.Impl;
 
 import com.mini.trailers.mini_trailers.Entidades.Genero;
 import com.mini.trailers.mini_trailers.Entidades.Pelicula;
+import com.mini.trailers.mini_trailers.Excepciones.RecursoNoEncontradoException;
 import com.mini.trailers.mini_trailers.Repositorio.GeneroRepositorio;
 import com.mini.trailers.mini_trailers.Repositorio.PeliculaRepositorio;
 import com.mini.trailers.mini_trailers.Servicio.GeneroService;
@@ -31,24 +32,27 @@ public class GeneroServicieImp implements GeneroService {
 
     @Override
     public Genero actualizarGenero(Genero genero) {
+        if (!generoRepositorio.existsById(genero.getId())) {
+            throw new RecursoNoEncontradoException("Género no encontrado con ID: " + genero.getId());
+        }
         return generoRepositorio.save(genero);
     }
 
     @Override
     public void eliminarGenero(Integer id) {
         Genero genero = obtenerGeneroPorId(id);
-        if (genero != null) {
-            // Paso 1: Desasociar el género de las películas
-            eliminarGeneroDePeliculas(id);
-
-            // Paso 2: Eliminar el género de la tabla `genero`
-            generoRepositorio.delete(genero);
+        // Si no existe, se lanza la excepción
+        if (genero == null) {
+            throw new RecursoNoEncontradoException("Género no encontrado con ID: " + id);
         }
+        eliminarGeneroDePeliculas(id);
+        generoRepositorio.delete(genero);
     }
 
     @Override
     public Genero obtenerGeneroPorId(Integer id) {
-        return generoRepositorio.findById(id).orElse(null);
+        return generoRepositorio.findById(id)
+                .orElseThrow(() -> new RecursoNoEncontradoException("Género no encontrado con ID: " + id));
     }
 
     @Override
@@ -58,25 +62,17 @@ public class GeneroServicieImp implements GeneroService {
 
     @Override
     public List<Pelicula> obtenerPeliculasPorGeneroId(Integer idGenero) {
-        // Este método ya está bien para obtener las películas
         return peliculaRepositorio.findByGeneros_Id(idGenero);
     }
 
     // Método para eliminar el género de todas las películas
     private void eliminarGeneroDePeliculas(Integer idGenero) {
-        // Paso 1: Obtener las películas que tienen este género
         List<Pelicula> peliculas = obtenerPeliculasPorGeneroId(idGenero);
-        
-        if (!peliculas.isEmpty()) {
-            Genero genero = obtenerGeneroPorId(idGenero);  // Buscar el género por ID
-            if (genero != null) {
-                // Paso 2: Eliminar el género de la lista de géneros de cada película
-                for (Pelicula pelicula : peliculas) {
-                    pelicula.getGeneros().remove(genero);
-                    // Guardar la película sin el género
-                    peliculaRepositorio.save(pelicula);
-                }
-            }
+        Genero genero = obtenerGeneroPorId(idGenero);
+
+        for (Pelicula pelicula : peliculas) {
+            pelicula.getGeneros().remove(genero);
+            peliculaRepositorio.save(pelicula);
         }
     }
 }
