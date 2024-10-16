@@ -3,12 +3,9 @@ package com.mini.trailers.mini_trailers.controladores;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,11 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mini.trailers.mini_trailers.Entidades.Genero;
 import com.mini.trailers.mini_trailers.Entidades.Pelicula;
-import com.mini.trailers.mini_trailers.Repositorio.PeliculaRepositorio;
 import com.mini.trailers.mini_trailers.Servicio.GeneroService;
 import com.mini.trailers.mini_trailers.Servicio.PeliculaService;
 
 @Controller
+@RequestMapping("/")
 public class HomeControlador {
 
     @Autowired
@@ -30,76 +27,72 @@ public class HomeControlador {
     @Autowired
     private GeneroService generoService;
 
-    /*
-     * Metodos de cliente del inicio
-     * 
+    /**
+     * Muestra la página de inicio con las últimas y antiguas películas y una lista de géneros.
      */
-
-
-    
-    @GetMapping("")
+    @GetMapping
     public ModelAndView verPaginaDeInicio(@PageableDefault(sort = "titulo", size = 5) Pageable pageable) {
         List<Pelicula> ultimasPeliculas = peliculaService.listarUltimPeliculas();
         List<Pelicula> peliculasAntiguas = peliculaService.ListarPeliculasAntiguas();
-        List<Genero> generos = generoService.listGenero(); // Obtén la lista de géneros
+        List<Genero> generos = generoService.listGenero();
 
-        // Combina ambos datos en un solo ModelAndView
         return new ModelAndView("index")
                 .addObject("ultimasPeliculas", ultimasPeliculas)
                 .addObject("peliculasAntiguas", peliculasAntiguas)
-                .addObject("generos", generos); // Añade la lista de géneros al modelo
+                .addObject("generos", generos);
     }
 
-    /*
-     * Vemos detalles de la pelicula
+    /**
+     * Muestra los detalles de una película específica.
      */
-
     @GetMapping("peliculas/{id}")
-    public ModelAndView mostrarDetallesDePeliculas(@PathVariable Integer id) {
+    public ModelAndView mostrarDetallesDePelicula(@PathVariable Integer id) {
         Pelicula pelicula = peliculaService.obtenerPeliculaPorId(id);
+        if (pelicula == null) {
+            return new ModelAndView("error/404"); // Redirige a una página de error si no se encuentra la película
+        }
 
-        return new ModelAndView("pelicula").addObject("pelicula", pelicula);
+        return new ModelAndView("pelicula")
+                .addObject("pelicula", pelicula);
     }
 
-
-    /*
-     * Bucamos peliculas por genero
+    /**
+     * Muestra las películas asociadas a un género específico.
      */
+    @GetMapping("peliculas/genero/{id}")
+    public ModelAndView listarPeliculasPorGenero(@PathVariable Integer id) {
+        Genero genero = generoService.obtenerGeneroPorId(id);
+        if (genero == null) {
+            return new ModelAndView("error/404");
+        }
 
-     @GetMapping("peliculas/genero/{id}")
-     public ModelAndView listarPeliculasPorGenero(@PathVariable Integer id) {
-         // Obtener el género por su ID
-         Genero genero = generoService.obtenerGeneroPorId(id);
-     
-         // Obtener la lista de películas asociadas al género
-         List<Pelicula> peliculasPorGenero = peliculaService.listarPeliculasPorGenero(genero);
-        
-         List<Genero> generos = generoService.listGenero(); // Obtén la lista de géneros
-         // Devolver el ModelAndView con las películas del género
-         return new ModelAndView("peliculas_por_genero")
-                 .addObject("peliculas", peliculasPorGenero)
-                 .addObject("genero", genero)
-                 .addObject("generos", generos);
-     }
+        List<Pelicula> peliculasPorGenero = peliculaService.listarPeliculasPorGenero(genero);
+        List<Genero> generos = generoService.listGenero();
 
+        return new ModelAndView("peliculas_por_genero")
+                .addObject("peliculas", peliculasPorGenero)
+                .addObject("genero", genero)
+                .addObject("generos", generos);
+    }
 
-
-
-    @GetMapping("/peliculas")
+    /**
+     * Muestra una lista de todas las películas.
+     */
+    @GetMapping("peliculas")
     public ModelAndView listarPeliculas() {
-        // Obtener la lista de películas recientes usando el servicio
         List<Pelicula> peliculas = peliculaService.listarTodasLasPelicuas();
-        List<Genero> generos = generoService.listGenero(); // Obtén la lista de géneros
+        List<Genero> generos = generoService.listGenero();
 
-        // Crear y devolver el ModelAndView
         return new ModelAndView("peliculas")
                 .addObject("peliculas", peliculas)
                 .addObject("generos", generos);
     }
 
+    /**
+     * Busca géneros por nombre.
+     */
     @GetMapping("peliculas/generos/buscar")
     public List<Genero> buscarGeneros(@RequestParam String nombre) {
         return generoService.buscarPorNombre(nombre);
     }
-
 }

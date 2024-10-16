@@ -8,12 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mini.trailers.mini_trailers.Entidades.Genero;
@@ -37,6 +32,10 @@ public class AdminControlador {
     @Autowired
     private AlmacenServicio almacenServicio;
 
+    // -------------------------------
+    // Métodos para gestionar Películas
+    // -------------------------------
+
     @GetMapping
     public ModelAndView listarPeliculas(@PageableDefault(sort = "titulo", size = 5) Pageable pageable) {
         Page<Pelicula> peliculas = peliculaService.listarPeliculas(pageable);
@@ -47,10 +46,6 @@ public class AdminControlador {
                 .addObject("totalElementos", peliculas.getTotalElements());
     }
 
-    /*
-     * to create movies
-     */
-
     @GetMapping("/peliculas/nuevo")
     public ModelAndView mostrarFormularioDeNuevaPelicula() {
         List<Genero> generos = generoService.listGenero();
@@ -60,30 +55,20 @@ public class AdminControlador {
     }
 
     @PostMapping("/peliculas/guardar")
-    public ModelAndView registrarPelicula(@Validated Pelicula pelicula, BindingResult bindingResult) {
-
+    public String registrarPelicula(@Validated Pelicula pelicula, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors() || pelicula.getPortada().isEmpty()) {
             if (pelicula.getPortada().isEmpty()) {
                 bindingResult.rejectValue("portada", "MultipartNotEmpty");
             }
-
-            List<Genero> generos = generoService.listGenero();
-            return new ModelAndView("admin/nueva-pelicula")
-                    .addObject("pelicula", pelicula)
-                    .addObject("generos", generos);
+            model.addAttribute("generos", generoService.listGenero());
+            return "admin/nueva-pelicula";
         }
 
         String rutaPortada = almacenServicio.almacenarArchivo(pelicula.getPortada());
         pelicula.setRutaPortada(rutaPortada);
-
         peliculaService.guardarPelicula(pelicula);
-
-        return new ModelAndView("redirect:/admin");
+        return "redirect:/admin";
     }
-
-    /*
-     * The methods to update movies
-     */
 
     @GetMapping("/peliculas/{id}/editar")
     public ModelAndView editarPelicula(@PathVariable Integer id) {
@@ -95,19 +80,14 @@ public class AdminControlador {
     }
 
     @PostMapping("/peliculas/{id}/actualizar")
-    public ModelAndView actualizarPelicula(@PathVariable Integer id, @Validated Pelicula pelicula,
-            BindingResult bindingResult) {
+    public String actualizarPelicula(@PathVariable Integer id, @Validated Pelicula pelicula,
+                                     BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            List<Genero> generos = generoService.listGenero();
-            return new ModelAndView("admin/editar-pelicula")
-                    .addObject("pelicula", pelicula)
-                    .addObject("generos", generos);
+            model.addAttribute("generos", generoService.listGenero());
+            return "admin/editar-pelicula";
         }
 
-        // Obtén la película existente
         Pelicula peliculaExistente = peliculaService.obtenerPeliculaPorId(id);
-
-        // Actualiza los campos de la película existente
         peliculaExistente.setTitulo(pelicula.getTitulo());
         peliculaExistente.setSinopsis(pelicula.getSinopsis());
         peliculaExistente.setGeneros(pelicula.getGeneros());
@@ -117,16 +97,9 @@ public class AdminControlador {
             String rutaPortada = almacenServicio.almacenarArchivo(pelicula.getPortada());
             peliculaExistente.setRutaPortada(rutaPortada);
         }
-
         peliculaService.actualizarPelicula(peliculaExistente);
-
-        return new ModelAndView("redirect:/admin");
+        return "redirect:/admin";
     }
-
-    /*
-     * Methot to delete movie
-     * 
-     */
 
     @PostMapping("/peliculas/{id}/eliminar")
     public String eliminarPelicula(@PathVariable Integer id) {
@@ -134,17 +107,10 @@ public class AdminControlador {
         return "redirect:/admin";
     }
 
+    // -------------------------------
+    // Métodos para gestionar Géneros
+    // -------------------------------
 
-
-
-
-
-
-
-    
-    /*
-     * Genero
-     */
     @GetMapping("/generos")
     public ModelAndView listarGeneros() {
         List<Genero> generos = generoService.listGenero();
@@ -159,28 +125,33 @@ public class AdminControlador {
     }
 
     @PostMapping("/genero/guardar")
-    public String guardarGenero(@ModelAttribute Genero genero) {
-        generoService.guardarGenero(genero); // Guarda el género
-        return "redirect:/admin/generos"; // Redirige a la lista de géneros después de guardar
+    public String guardarGenero(@Validated @ModelAttribute Genero genero, BindingResult result) {
+        if (result.hasErrors()) {
+            return "admin/form-genero";
+        }
+        generoService.guardarGenero(genero);
+        return "redirect:/admin/generos";
     }
 
-    // Nuevo: Mostrar formulario para editar un género
-@GetMapping("/genero/editar/{id}")
-public ModelAndView mostrarFormEditarGenero(@PathVariable("id") Integer id) {
-    Genero genero = generoService.obtenerGeneroPorId(id);
-    return new ModelAndView("admin/editar-genero")
-            .addObject("genero", genero); // Cargar el género existente para editar
-}
+    @GetMapping("/genero/editar/{id}")
+    public ModelAndView mostrarFormEditarGenero(@PathVariable Integer id) {
+        Genero genero = generoService.obtenerGeneroPorId(id);
+        return new ModelAndView("admin/editar-genero")
+                .addObject("genero", genero);
+    }
 
-@PostMapping("/generos/actualizar")
-public String actualizarGenero(@ModelAttribute Genero genero) {
-    generoService.actualizarGenero(genero); // Actualiza el género
-    return "redirect:/admin/generos"; // Redirige a la lista de géneros después de actualizar
-}
+    @PostMapping("/generos/actualizar")
+    public String actualizarGenero(@Validated @ModelAttribute Genero genero, BindingResult result) {
+        if (result.hasErrors()) {
+            return "admin/editar-genero";
+        }
+        generoService.actualizarGenero(genero);
+        return "redirect:/admin/generos";
+    }
 
     @PostMapping("/generos/eliminar/{id}")
-    public ModelAndView eliminarGenero(@PathVariable("id") Integer id) {
+    public String eliminarGenero(@PathVariable Integer id) {
         generoService.eliminarGenero(id);
-        return new ModelAndView("redirect:/admin/generos");
+        return "redirect:/admin/generos";
     }
 }

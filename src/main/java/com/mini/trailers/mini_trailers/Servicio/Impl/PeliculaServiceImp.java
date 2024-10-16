@@ -11,9 +11,12 @@ import org.springframework.stereotype.Service;
 
 import com.mini.trailers.mini_trailers.Entidades.Genero;
 import com.mini.trailers.mini_trailers.Entidades.Pelicula;
+import com.mini.trailers.mini_trailers.Excepciones.RecursoNoEncontradoException;
 import com.mini.trailers.mini_trailers.Repositorio.PeliculaRepositorio;
 import com.mini.trailers.mini_trailers.Servicio.AlmacenServicio;
 import com.mini.trailers.mini_trailers.Servicio.PeliculaService;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class PeliculaServiceImp implements PeliculaService {
@@ -46,12 +49,18 @@ public class PeliculaServiceImp implements PeliculaService {
 
     @Override
     public Pelicula obtenerPeliculaPorId(Integer id) {
-        return peliculaRepositorio.getOne(id); 
+        return peliculaRepositorio.findById(id)
+                .orElseThrow(() -> new RecursoNoEncontradoException("Pelicula no encontrada con ID: " + id));
     }
 
   
 
+    @Override
+    @Transactional
     public Pelicula actualizarPelicula(Pelicula pelicula) {
+        if (!peliculaRepositorio.existsById(pelicula.getId())) {
+            throw new RecursoNoEncontradoException("No se puede actualizar, pelicula no encontrada con ID: " + pelicula.getId());
+        }
         return peliculaRepositorio.save(pelicula);
     }
 
