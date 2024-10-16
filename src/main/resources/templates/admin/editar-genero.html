@@ -15,55 +15,53 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="/css/adminGenero.css">
+    <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
 
-    <header class="dashboard-header">
-        <div class="container">
-          <h2 class="text-center">Dashboard de Administración ECOCINEMA</h2>
-        </div>
-      </header>
-  
-      <aside>
-        <nav class="sidebar">
-          <div class="sidebar-header">
-            <img src="/img/cineLogo.png" alt="" />
-          </div>
-          <ul class="nav">
-            <li>
-              <a href="/admin"><i class="bx bx-home"></i>Inicio</a>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown"
-                ><i class="bx bx-user"></i>Películas</a
-              >
-              <ul class="dropdown-menu">
-                <li><a href="/admin">Lista de películas</a></li>
-                <li><a href="admin/peliculas/nuevo">Agregar película</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="#"><i class="bx bx-box"></i>Contenido</a>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown"
-                ><i class="bx bx-category"></i>Género</a
-              >
-              <ul class="dropdown-menu">
-                <li><a href="/admin/generos">Lista de géneros</a></li>
-                <li><a href="/admin/genero/nuevo">Agregar género</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="/"><i class="bx bx-low-vision"></i>Visualizar</a>
-            </li>
+  <header class="dashboard-header">
+      
+  </header>
+
+  <aside>
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <img src="/img/cineLogo.png" alt="" />
+      </div>
+      <ul class="nav">
+        <li>
+          <a href="/admin"><i class="bx bx-home"></i>Inicio</a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown"
+            ><i class="bx bx-user"></i>Películas</a
+          >
+          <ul class="dropdown-menu">
+            <li><a href="/admin">Lista de películas</a></li>
+            <li><a href="admin/peliculas/nuevo">Agregar película</a></li>
           </ul>
-          <div class="cerrar-sesion">
-            <i class="bx bx-exit"></i><a href="">Cerrar Sesión</a>
-          </div>
-        </nav>
-      </aside>
+        </li>
+        <li>
+          <a href="#"><i class="bx bx-box"></i>Contenido</a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown"
+            ><i class="bx bx-category"></i>Género</a
+          >
+          <ul class="dropdown-menu">
+            <li><a href="/admin/generos">Lista de géneros</a></li>
+            <li><a href="/admin/genero/nuevo">Agregar género</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="/"><i class="bx bx-low-vision"></i>Visualizar</a>
+        </li>
+      </ul>
+      <div class="cerrar-sesion">
+        <i class="bx bx-exit"></i><a href="">Cerrar Sesión</a>
+      </div>
+    </nav>
+  </aside>
 
 <main>
     <section class="administracion">
@@ -83,43 +81,9 @@
 </main>
 
  <!-- Incluye jQuery y Bootstrap JS -->
+ <script src="/js/dropdown.js"></script>
  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
- <!-- Tu archivo JavaScript personalizado -->
- <script>
-   document.addEventListener("DOMContentLoaded", function () {
-     const dropdowns = document.querySelectorAll(".dropdown");
-
-     dropdowns.forEach((dropdown) => {
-       const toggle = dropdown.querySelector(".dropdown-toggle");
-       const menu = dropdown.querySelector(".dropdown-menu");
-
-       toggle.addEventListener("click", function (event) {
-         event.preventDefault();
-
-         // Cierra otros menús si están abiertos
-         dropdowns.forEach((d) => {
-           if (d !== dropdown) {
-             d.querySelector(".dropdown-menu").classList.remove("show");
-           }
-         });
-
-         // Alterna la visibilidad del menú actual
-         menu.classList.toggle("show");
-       });
-
-       // Cierra el menú si se hace clic fuera de él
-       document.addEventListener("click", function (event) {
-         if (
-           !dropdown.contains(event.target) &&
-           menu.classList.contains("show")
-         ) {
-           menu.classList.remove("show");
-         }
-       });
-     });
-   });
- </script>
 </body>
 </html>

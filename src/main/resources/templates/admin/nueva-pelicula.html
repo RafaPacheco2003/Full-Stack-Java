@@ -17,78 +17,59 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/css/admin.css" />
-    <style>
-        .preview-container {
-            width: 100%;
-            max-width: 400px;
-            height: 500px;
-            border: 1px solid #ced4da;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .preview-container img {
-        max-width: 100%;
-        height: auto;
-        display: block;
-        margin: 0 auto;
-    }
-    </style>
+   
 </head>
 <body>
 
 
-    <header class="dashboard-header">
-        <div class="container">
-          <h2 class="text-center">Dashboard de Administración de Películas</h2>
-        </div>
-      </header>
-  
-      <aside>
-        <nav class="sidebar">
-          <div class="sidebar-header">
-            <img src="/img/cineLogo.png" alt="" />
-          </div>
-          <ul class="nav">
-            <li>
-              <a href="/admin"><i class="bx bx-home"></i>Inicio</a>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown"
-                ><i class="bx bx-user"></i>Películas</a
-              >
-              <ul class="dropdown-menu">
-                <li><a href="/admin">Lista de películas</a></li>
-                <li><a href="admin/peliculas/nuevo">Agregar película</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="#"><i class="bx bx-box"></i>Contenido</a>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown"
-                ><i class="bx bx-category"></i>Género</a
-              >
-              <ul class="dropdown-menu">
-                <li><a href="/admin/generos">Lista de géneros</a></li>
-                <li><a href="/admin/genero/nuevo">Agregar género</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="/"><i class="bx bx-low-vision"></i>Visualizar</a>
-            </li>
+  <header class="dashboard-header">
+      
+  </header>
+
+  <aside>
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <img src="/img/cineLogo.png" alt="" />
+      </div>
+      <ul class="nav">
+        <li>
+          <a href="/admin"><i class="bx bx-home"></i>Inicio</a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown"
+            ><i class="bx bx-user"></i>Películas</a
+          >
+          <ul class="dropdown-menu">
+            <li><a href="/admin">Lista de películas</a></li>
+            <li><a href="admin/peliculas/nuevo">Agregar película</a></li>
           </ul>
-          <div class="cerrar-sesion">
-            <i class="bx bx-exit"></i><a href="">Cerrar Sesión</a>
-          </div>
-        </nav>
-      </aside>
+        </li>
+        <li>
+          <a href="#"><i class="bx bx-box"></i>Contenido</a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown"
+            ><i class="bx bx-category"></i>Género</a
+          >
+          <ul class="dropdown-menu">
+            <li><a href="/admin/generos">Lista de géneros</a></li>
+            <li><a href="/admin/genero/nuevo">Agregar género</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="/"><i class="bx bx-low-vision"></i>Visualizar</a>
+        </li>
+      </ul>
+      <div class="cerrar-sesion">
+        <i class="bx bx-exit"></i><a href="">Cerrar Sesión</a>
+      </div>
+    </nav>
+  </aside>
 
 
       <main>
-        <div class="container my-5">
-            <h1 class="mb-4">Agregar Nueva Película</h1>
+        <div class="container my-3">
+            <h3 class="mb-4">Nueva Película</h3>
             <form method="post" enctype="multipart/form-data" th:action="@{/admin/peliculas/guardar}" th:object="${pelicula}">
                 <div class="row">
                     <!-- Lado izquierdo: Previsualización de la portada -->
@@ -149,22 +130,12 @@
       </main>
    
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+   <!-- Incluye jQuery y Bootstrap JS -->
+   <script src="/js/dropdown.js"></script>
+   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="/js/previewImage.js"></script>
 
-    <script>
-        function previewImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function () {
-                    const output = document.getElementById('preview');
-                    output.src = reader.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-    </script>
 </body>
 </html>

@@ -81,12 +81,12 @@ public class PeliculaServiceImp implements PeliculaService {
      */
     @Override
     public List<Pelicula> listarUltimPeliculas() {
-        return peliculaRepositorio.findAll(PageRequest.of(0, 4, Sort.by("fechaEstreno").descending())).toList();
+        return peliculaRepositorio.findAll(PageRequest.of(0, 5, Sort.by("fechaEstreno").descending())).toList();
     }
 
     @Override
     public List<Pelicula> ListarPeliculasAntiguas() {
-        return peliculaRepositorio.findAll(PageRequest.of(0, 4, Sort.by("fechaEstreno").ascending())).toList();
+        return peliculaRepositorio.findAll(PageRequest.of(0, 5, Sort.by("fechaEstreno").ascending())).toList();
     }
 
     @Override

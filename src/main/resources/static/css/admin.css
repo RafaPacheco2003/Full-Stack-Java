@@ -10,33 +10,42 @@
 }
 
 /* Globales */
+html, body {
+    height: 100%; /* Asegura que html y body ocupen toda la altura */
+}
+
 .container {
     max-width: 1200px;
     width: 90%;
-    margin: 0 auto;
 }
 
+body {
+    background-color: #f7f7f7;
+}
 
-header{
-  
+header {
     max-width: 80%;
-    height: 100px;
+    height: 50px;
     padding: 20px 40px;
     background-color: #f7f7f7;
     margin-left: auto;
-    border: 1px solid #000000;
 }
-main{
-   
+
+main {
+    border: 1px solid #f5f5f5; /* Borde en todos los lados */
+    border-bottom: none; /* Sin borde inferior */
     max-width: 100%;
-    margin-left: 240px;
+    background-color: #ffffff;
+    margin-left: 239px;
+    border-radius: 10px 10px 0 0; /* Redondea solo la parte superior */
+    height: calc(100% - 50px); /* Ocupa toda la altura menos el header */
+    overflow-y: auto; /* Permite el desplazamiento si el contenido es más alto que la ventana */
 }
+
 /*
 Sidebar
 */
 .sidebar {
-
-
     width: 20%;
     height: 100vh;
     background-color: #f5f5f5;
@@ -45,11 +54,10 @@ Sidebar
     top: 0;
     left: 0;
     padding: 20px;
-    border-right: 1px solid #A9A9A9;
     border-radius: 5px;
-  }
-  
-  .sidebar-header {
+}
+
+.sidebar-header {
     width: 100%;
     margin-bottom: 20px;
     padding-bottom: 10px;
@@ -58,38 +66,35 @@ Sidebar
     justify-content: start;
     align-items: center;
     overflow: hidden;
-  }
-  
-  .sidebar-header img {
+}
+
+.sidebar-header img {
     width: 200px;
     height: 70px;
     object-fit: cover;
     max-width: 100%;
-  }
-  
-  .sidebar-header h2 {
+}
+
+.sidebar-header h2 {
     margin: 0;
     padding: 0;
     font-size: 15px;
     color: #ecf0f1;
     text-align: center;
-  }
-  
-  .nav {
-    
+}
+
+.nav {
     list-style-type: none;
     padding: 0;
     margin: 0;
-    
-  }
-  
-  
-  .nav li {
+}
+
+.nav li {
     margin: 15px 0;
     width: 100%;
-  }
-  
-  .nav li a {
+}
+
+.nav li a {
     display: flex;          /* Usamos flexbox para alinear el ícono y el texto */
     align-items: center;     /* Centrar verticalmente el contenido */
     justify-content: center; /* Alinear el texto*/
@@ -99,25 +104,25 @@ Sidebar
     width: 100%;             /* Asegura que todos los enlaces ocupen el 100% del ancho */
     box-sizing: border-box;  /* Incluye el padding en el ancho total */
     padding: 10px;           /* Añade padding para dar espacio dentro de los botones */
-  }
-  
-  .nav li a:hover {
+}
+
+.nav li a:hover {
     background-color: #313030;
     color: #f7f7f7;
     border-radius: 5px;
-  }
-  
-  .nav i {
+}
+
+.nav i {
     margin-right: 10px;
-  }
-  
-  /* Estilo para el contenedor del dropdown-menu */
-  .dropdown {
+}
+
+/* Estilo para el contenedor del dropdown-menu */
+.dropdown {
     position: relative; /* Para que el menú desplegable se posicione en relación a este contenedor */
-  }
-  
-  /* Inicialmente oculto y preparado para la transición */
-  .dropdown-menu {
+}
+
+/* Inicialmente oculto y preparado para la transición */
+.dropdown-menu {
     list-style-type: none;
     padding: 0;
     margin: 0;
@@ -133,15 +138,16 @@ Sidebar
     visibility: hidden; /* No visible */
     transform: translateY(-10px); /* Inicia ligeramente arriba */
     transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
-  }
-  
-  /* Clase activa para mostrar el menú */
-  .dropdown-menu.show {
+}
+
+/* Clase activa para mostrar el menú */
+.dropdown-menu.show {
     display: block;
     opacity: 1;
     visibility: visible;
-    transform: translateY(0); /* Mueve el menú a su posición original */
-  }
+    transform: translateY(0); /* Muestra el menú */
+}
+
   
   .dropdown-menu li {
     margin: 10px 0;
@@ -188,6 +194,8 @@ Sidebar
   }
 
 
+
+
   .btn-agregar{
     transition: background-color 0.3s, transform 0.2s;
 
@@ -207,7 +215,20 @@ Sidebar
 
 
 
-
+  .preview-container {
+    width: 100%;
+    max-width: 300px;
+    height: 340px;
+    border: 1px solid #ced4da;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.preview-container img {
+    max-width: 100%;
+    max-height: 100%;
+}
 
 
 
@@ -219,7 +240,100 @@ Sidebar
   +Genero
   */
 
+  .administracionGeneroList{
+    padding-top: 40px;
+     
+ 
+ }
+ 
+ 
+ .list-genero-h{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    
+ }
+ 
+ .list-genero-h a {
+     display: inline-block;
+ 
+     padding: 8px 13px;
+     font-size: 11px;
+     text-align: center;
+     text-decoration: none;
+     color: white;
+     background-color: #007bff;
+     border: 1px solid #79b2e3;
+     border-radius: 5px;
+     transition: background-color 0.3s, border-color 0.3s;
+     
+ }
+ .list-genero-h a:hover {
+     background-color: #0056b3;
+     border-color: #0056b3;
+ }
+ 
+ .buscar-container{
+   display: flex;
+   align-items: center;
+ }
+ 
+ .buscar-input{
+   padding: 4px 6px;
+   margin-right: 10px;
+   border: 1px solid #ddd;
+   border-radius: 4px;
+ }
+ 
+ 
+ 
+ 
+ /*
+ Table 
+ */
+ 
+ 
+ 
+ .table-container {
+   
+   max-height: 300px; /* Ajusta la altura según tu diseño */
+   overflow-y: auto; /* Habilita el desplazamiento vertical */
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombreado sutil */
+ }
+ 
+ 
+ .container-btn{
+   width: 50px;
+   display: flex;
+   justify-content: start;
+   align-items: center;
+   grid-gap: 10px;
+ }
+ .btn-eliminar , .btn-editar{
+   padding: 7px 11px;
+   color: #ffffff;
+   text-decoration: none;
+   border-radius: 5px;
+   border-radius: 5px;
+ 
+ }
+ 
+ .btn-editar{
+   border: 1px solid rgb(135, 213, 111);
+   background-color: rgb(135, 213, 111);
+   
+ }
+ 
+ .btn-eliminar{
+   border: 1px solid rgb(213, 111, 111);
+   
+   background-color: rgb(213, 111, 111);
   
+ }
+
+
+/*Formulario*/
 .administracion{
     
   padding: 40px 60px;
@@ -273,7 +387,7 @@ form input{
   margin: 30px 0;
 }
 
-form button {
+.btn-guardar-genero {
   align-self: flex-end;
   padding: 10px 20px;
   background-color: #28a745; /* Color verde */
@@ -286,12 +400,12 @@ form button {
   transition: background-color 0.3s, transform 0.2s;
 }
 
-form button:hover {
+.btn-guardar-genero:hover {
   background-color: #218838; /* Verde más oscuro al pasar el ratón */
   transform: scale(1.05); /* Agranda el botón un poco al pasar el ratón */
 }
 
-form button:active {
+.btn-guardar-genero:active {
   background-color: #1e7e34; /* Verde aún más oscuro cuando se hace clic */
   transform: scale(0.98); /* Reduce un poco el tamaño al hacer clic */
 }
